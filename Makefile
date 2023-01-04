@@ -30,8 +30,6 @@ endef
 export PRINT_HELP_PYSCRIPT
 
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
-DO_DOCS_HTML := $(MAKE) -C docs html
-
 PACKAGE_NAME = "pybary"
 COVERAGE_IGNORE_PATHS = "pybary/examples"
 
@@ -68,15 +66,6 @@ coverage: clean ## check code coverage quickly with the default Python
 	coverage report -m --omit="$$COVERAGE_IGNORE_PATHS"
 	coverage html
 	$(BROWSER) htmlcov/index.html
-
-docs: clean ## generate Sphinx HTML documentation, including API docs
-	$(MAKE) -C docs clean
-	sphinx-apidoc -o "docs/" "$$PACKAGE_NAME"
-	$(MAKE) -C docs html
-	$(BROWSER) 'docs/_build/html/index.html'
-
-docs-watch: docs ## compile the docs watching for changes
-	watchmedo shell-command -p '*.rst' -c '$$DO_DOCS_HTML' -R -D .
 
 install: clean ## install the package to the active Python's site-packages
 	poetry shell
