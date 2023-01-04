@@ -10,7 +10,11 @@ oracle = lambda x: power(x, 2)
 x0 = array([0, 0])
 
 # Batch points for batch barycenter version
-xs = normal(0, 1, [100, 2])
+mu_x = 0
+sigma_x = 1
+size_x = [100, 2]
+
+xs = normal(mu_x, sigma_x, size_x)
 
 # Hyperparameters
 nu = 10
@@ -25,7 +29,9 @@ xhat_recursive = bary_recursive(
     )
 
 # Batch run
-xhat_batch = bary_batch(oracle, xs, nu, sigma)
+xhat_batch = bary_batch(
+        oracle, xs, nu, sigma
+    )
 
 # Results
 print(xhat_batch)
