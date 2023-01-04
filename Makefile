@@ -63,6 +63,7 @@ test-watch: ## run tests on watchdog mode
 	ptw
 
 coverage: clean ## check code coverage quickly with the default Python
+	pytest --cov=pybary/
 	coverage run --source "$$PACKAGE_NAME" -m pytest
 	coverage report -m --omit="$$COVERAGE_IGNORE_PATHS"
 	coverage html
