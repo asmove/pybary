@@ -13,7 +13,7 @@ How to install
 We run the command on desired installation environment:
 
 ``` {.bash}
-    pip install pybary
+pip install pybary
 ```
 
 Minimal example
