@@ -3,28 +3,51 @@ from functools import reduce
 from numpy import exp, zeros
 from numpy.random import normal
 
-def bary_batch(oracle, xs, nu = 1, lambda_ = 1):
+DEFAULT_NU = 1
+DEFAULT_LAMBDA = 1
+DEFAULT_SIGMA = 0.1
+DEFAULT_ZETA = 0
+DEFAULT_ITERANTION_COUNT = 0
+
+def bary_batch(oracle, xs, nu = DEFAULT_NU):
     ''' 
      Batch barycenter algorithm for direct optimization
      
      In:
-       - oracle     [function]   : Oracle function e.g. lambda x: numpy.power(x, 2)
+       - oracle     [function]   : Oracle function e.g. lambda x: numpy.norm(x)
        - xs         [list[list]] : list with coordinates
        - nu         [double]     : positive value (Caution on its value due overflow)
        - lambda     [double]     : Forgetting factor between 0 and 1
      Out:
-        - x [list]: Optimum position
+        - xhat      [np.array]   : barycenter position
     '''
     
-    numerator_fun = lambda lr_result, x: lambda_*lr_result + x*exp(-nu*oracle(x))
-    denominator_fun = lambda lr_result, curr_x: lambda_*lr_result + exp(-nu*oracle(curr_x))
+    n = len(xs[0])
+    size_x = (n, 1)
 
-    numerator = reduce(numerator_fun, xs)
-    denominator = reduce(denominator_fun, xs)
-    
-    return numerator/denominator
+    bexp_fun = lambda x: exp(-nu*oracle(x))
 
-def bary_recursive(oracle, x0, nu = 1, sigma = 0.1, zeta = 0, lambda_ = 1, iterations = 1000):
+    prod_func = lambda elems: elems[0]*elems[1]
+    sum_func = lambda acc, a: acc + a
+
+    num = reduce(
+        sum_func, 
+        map(prod_func, zip(map(bexp_fun, xs), xs)), 
+        zeros(size_x).T
+    )
+
+    den = reduce(sum_func, map(bexp_fun, xs), 0)
+
+    return num/den
+
+def bary_recursive(
+    oracle, x0, 
+    nu = DEFAULT_NU, 
+    sigma = DEFAULT_SIGMA, 
+    zeta = DEFAULT_ZETA, 
+    lambda_ = DEFAULT_LAMBDA, 
+    iterations = DEFAULT_ITERANTION_COUNT
+  ):
     '''
      Recursive barycenter algorithm for direct optimization
      
@@ -35,10 +58,10 @@ def bary_recursive(oracle, x0, nu = 1, sigma = 0.1, zeta = 0, lambda_ = 1, itera
        - sigma      [double]    : Std deviation of normal distribution
        - zeta       [double]    : Proportional value for mean of normal distribution
        - lambda     [double]    : Forgetting factor between 0 and 1
-       - iterations [int]       : Maximum number of iterations
+       - iterations [integer]   : Maximum number of iterations
      
      Out:
-        - x [np.array]: Optimum position
+        - xhat      [np.array]  : barycenter position
     '''
     
     # Initialization
@@ -61,8 +84,8 @@ def bary_recursive(oracle, x0, nu = 1, sigma = 0.1, zeta = 0, lambda_ = 1, itera
         solution_is_found = i >= iterations
         
         # Update previous variables
-        m_1=m
-        xhat_1=xhat
+        m_1 = m
+        xhat_1 = xhat
         
         i = i + 1
     
