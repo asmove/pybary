@@ -10,7 +10,7 @@ homepage = "https://pypi.org/project/pybary/"
 repository = "https://github.com/asmove/pybary"
 keywords = ["optimization", "discrete"]
 classifiers = [
-    "Development Status :: 6 - Mature",
+    "Development Status :: 1 - Planning",
     "Intended Audience :: Education :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
