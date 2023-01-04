@@ -1,7 +1,7 @@
 Pybary
 ========
 
-![a night owl](https://github.com/quivero/eule/blob/master/images/pybary-tiny.png?raw=true)
+![An sniffer optimizer](https://github.com/quivero/eule/blob/master/images/pybary-tiny.png?raw=true)
 
 [![Version](https://img.shields.io/pypi/v/pybary.svg)](https://pypi.python.org/pypi/pybary)
 [![python](https://img.shields.io/pypi/pyversions/pybary.svg)](https://pypi.org/project/pybary/)
