@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pybary"
-version = "0.0.1"
+version = "0.0.2"
 description = "Barycenter method in python"
 authors = ["Bruno Peixoto <brunolnetto@gmail.com>"]
 license = "MIT license"
@@ -10,7 +10,7 @@ homepage = "https://pypi.org/project/pybary/"
 repository = "https://github.com/asmove/pybary"
 keywords = ["optimization", "discrete"]
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Education",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
