@@ -1,7 +1,7 @@
 """Main module."""
-from scipy.random import normal
 from functools import reduce
 from numpy import exp, zeros
+from numpy.random import normal
 
 def bary_batch(oracle, xs, nu = 1, lambda_ = 1):
     ''' 
