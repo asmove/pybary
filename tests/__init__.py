@@ -1,3 +1,3 @@
-"""Unit test package for eule."""
+"""Unit test package for pybary."""
 
 from __future__ import annotations
