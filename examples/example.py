@@ -31,7 +31,12 @@ lambda_ = 1
 iterations = 1000
 
 # Recursive run
-xhat_recursive = bary_recursive(oracle, x0, nu, sigma, zeta, lambda_, iterations)
+xhat_recursive = bary_recursive(
+    oracle, 
+    x0, 
+    nu, sigma, zeta, lambda_, 
+    iterations
+)
 
 # Batch run
 xhat_batch = bary_batch(oracle, xs, nu)

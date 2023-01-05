@@ -18,9 +18,9 @@ def bary_batch(oracle, xs, nu=DEFAULT_NU):
     Batch barycenter algorithm for direct optimization
 
     In:
-      - oracle     [function]   : Oracle function e.g. lambda x: numpy.norm(x)
+      - oracle     [function]   : Oracle map e.g. lambda x: numpy.norm(x)
       - xs         [list[list]] : list with coordinates
-      - nu         [double]     : positive value (Caution on its value due overflow)
+      - nu         [double]     : positive value (Caution due overflow)
       - lambda     [double]     : Forgetting factor between 0 and 1
     Out:
        - xhat      [np.array]   : barycenter position
@@ -38,7 +38,8 @@ def bary_batch(oracle, xs, nu=DEFAULT_NU):
     def sum_func(acc, a):
         return acc + a
 
-    num = reduce(sum_func, map(prod_func, zip(map(bexp_fun, xs), xs)), zeros(size_x).T)
+    coord_value_iter = zip(map(bexp_fun, xs), xs)
+    num = reduce(sum_func, map(prod_func, coord_value_iter), zeros(size_x).T)
 
     den = reduce(sum_func, map(bexp_fun, xs), 0)
 
@@ -58,11 +59,11 @@ def bary_recursive(
     Recursive barycenter algorithm for direct optimization
 
     In:
-      - oracle     [function]  : Oracle function e.g. lambda x: numpy.power(x, 2)
+      - oracle     [function]  : Oracle map e.g. lambda x: numpy.norm(x, 2)
       - x0         [np.array]  : Initial query values
-      - nu         [double]    : positive value (Caution on its value due overflow)
+      - nu         [double]    : positive value (Caution due overflow)
       - sigma      [double]    : Std deviation of normal distribution
-      - zeta       [double]    : Proportional value for mean of normal distribution
+      - zeta       [double]    : scaler for mean of normal distribution 
       - lambda     [double]    : Forgetting factor between 0 and 1
       - iterations [integer]   : Maximum number of iterations
 
