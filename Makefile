@@ -56,11 +56,15 @@ clean-cache: ## remove test and coverage artifacts
 test: ## run tests quickly with the default Python
 	pytest
 
-atest: ## run tests on every Python version with tox
+atest: install ## run tests on every Python version with tox
 	tox -q
 
 test-watch: ## run tests on watchdog mode
 	ptw
+
+lint: clean ## perform inplace lint fixes
+	ruff --fix .
+	pre-commit run --all-files
 
 coverage: clean ## check code coverage quickly with the default Python
 	pytest --cov=pybary/
