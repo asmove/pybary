@@ -6,9 +6,9 @@ from functools import reduce
 from numpy import exp, zeros
 from numpy.random import normal
 
-DEFAULT_NU = 1
+DEFAULT_NU = 3
 DEFAULT_LAMBDA = 1
-DEFAULT_SIGMA = 0.1
+DEFAULT_SIGMA = 0.5
 DEFAULT_ZETA = 0
 DEFAULT_ITERANTION_COUNT = 1000
 
@@ -63,7 +63,7 @@ def bary_recursive(
       - x0         [np.array]  : Initial query values
       - nu         [double]    : positive value (Caution due overflow)
       - sigma      [double]    : Std deviation of normal distribution
-      - zeta       [double]    : scaler for mean of normal distribution 
+      - zeta       [double]    : scaler for mean of normal distribution
       - lambda     [double]    : Forgetting factor between 0 and 1
       - iterations [integer]   : Maximum number of iterations
 

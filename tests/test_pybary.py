@@ -55,11 +55,11 @@ def test_bary_recursive():
     nu, sigma, zeta, lambda_ = 5, 0.5, 0, 1
 
     # Iteration cardinality
-    n_iterations = 1000
+    n_iters = 1000
 
     # Recursive run
-    xhat_recursive = bary_recursive(oracle, x0, nu, sigma, zeta, lambda_, n_iterations)
+    xhat = bary_recursive(oracle, x0, nu, sigma, zeta, lambda_, n_iters)
 
     solution = zeros(size_x)
 
-    assert norm(solution - xhat_recursive) < sigma
+    assert norm(solution - xhat) < sigma
