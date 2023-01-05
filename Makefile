@@ -68,8 +68,8 @@ lint: clean ## perform inplace lint fixes
 
 coverage: clean ## check code coverage quickly with the default Python
 	pytest --cov=pybary/
-	coverage run --source "$$PACKAGE_NAME" -m pytest
-	coverage report -m --omit="$$COVERAGE_IGNORE_PATHS"
+	coverage run --source "$$(PACKAGE_VERSION)" -m pytest
+	coverage report -m --omit="$$(COVERAGE_IGNORE_PATHS)"
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
@@ -80,8 +80,8 @@ install: clean ## install the package to the active Python's site-packages
 bump-version: ## bump version to user-provided {patch|minor|major} semantic
 	poetry version $(v)
 	git add pyproject.toml
-	git commit -m "release/ tag v$$PACKAGE_VERSION"
-	git tag v$$PACKAGE_VERSION
+	git commit -m "release/ tag v$(poetry version -s)"
+	git tag "v$(poetry version -s)"
 	git push
 	git push --tags
 	poetry version
