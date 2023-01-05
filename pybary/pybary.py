@@ -30,6 +30,7 @@ def bary_batch(oracle, xs, nu = DEFAULT_NU):
 
     def prod_func(elems):
         return (elems[0] * elems[1])
+    
     def sum_func(acc, a):
         return (acc + a)
 
@@ -67,6 +68,9 @@ def bary_recursive(
         - xhat      [np.array]  : barycenter position
     '''
     
+    def bexp_fun(x):
+        return exp(-nu * oracle(x))
+
     # Initialization
     xhat_1 = x0
     m_1 = 0
@@ -77,11 +81,11 @@ def bary_recursive(
     
     # Optimization loop
     i = 1
-    while(not solution_is_found):    
+    while(not solution_is_found):
         z = normal(zeta*deltax_1, sigma).T
-        
+
         x = xhat_1 + z
-        e_i = exp(-nu*oracle(x))
+        e_i = bexp_fun(x)
         m = lambda_*m_1 + e_i
         xhat = (1/m)*(lambda_*m_1*xhat_1 + x*e_i)
         

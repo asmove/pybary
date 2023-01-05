@@ -5,11 +5,10 @@ from numpy.random import normal
 from numpy.linalg import norm
 
 # Oracle function
-def oracle(x):
-    return norm(x)
+oracle = lambda x: norm(x)
 
 # Initial point
-x0 = array([0, 0])
+x0 = array([1, 1])
 
 # Batch points for batch barycenter version
 mu_x = 0
@@ -19,8 +18,8 @@ size_x = [1000, 2]
 xs = normal(mu_x, sigma_x, size_x)
 
 # Hyperparameters
-nu = 1
-sigma = 0.1
+nu = 5
+sigma = 0.5
 zeta = 0
 lambda_ = 1
 iterations = 1000
