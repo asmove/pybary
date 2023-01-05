@@ -7,7 +7,7 @@ DEFAULT_NU = 1
 DEFAULT_LAMBDA = 1
 DEFAULT_SIGMA = 0.1
 DEFAULT_ZETA = 0
-DEFAULT_ITERANTION_COUNT = 0
+DEFAULT_ITERANTION_COUNT = 1000
 
 def bary_batch(oracle, xs, nu = DEFAULT_NU):
     ''' 
@@ -67,8 +67,9 @@ def bary_recursive(
     # Initialization
     xhat_1 = x0
     m_1 = 0
+    card_x = len(x0)
 
-    deltax_1 = zeros((len(x0), 1))
+    deltax_1 = zeros((card_x, 1))
     solution_is_found = False
     
     # Optimization loop
