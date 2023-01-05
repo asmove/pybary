@@ -30,8 +30,10 @@ endef
 export PRINT_HELP_PYSCRIPT
 
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
-PACKAGE_NAME = "pybary"
 COVERAGE_IGNORE_PATHS = "pybary/examples"
+
+PACKAGE_NAME = "pybary"
+PACKAGE_VERSION := poetry version -s
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
@@ -73,7 +75,6 @@ install: clean ## install the package to the active Python's site-packages
 
 bump-version: ## bump version to user-provided {patch|minor|major} semantic
 	poetry version $(v)
-	PACKAGE_VERSION := poetry version -s
 	git add pyproject.toml
 	git commit -m "release/ tag v$$PACKAGE_VERSION"
 	git tag v$$PACKAGE_VERSION
