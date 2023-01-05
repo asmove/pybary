@@ -1,14 +1,31 @@
 from __future__ import annotations
 
-import pytest
-
 from pybary.pybary import bary_batch, bary_recursive
+from numpy import array
+from numpy.testing import assert_allclose
+from numpy.linalg import norm
 
 
-def test_bary():
+def test_bary_batch():
     """
-    Dummy test for starters
+    Must return deterministic barycenter evaluation 
     """
-    assert 'banana' == 'banana'
+
+    # Oracle function
+    oracle = lambda x: norm(x)
+
+    # Initial point
+    xs_test = array([[0, 0], [1, 1]])
+
+    # Hyperparameters
+    nu = 1
+    
+    result = bary_batch(oracle, xs_test, nu)
+    expected = array([[0.19557032, 0.19557032]])
+    
+    print(result)
+    print(expected)
+
+    assert_allclose(result, expected)
 
 
