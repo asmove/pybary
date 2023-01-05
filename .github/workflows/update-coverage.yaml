@@ -63,7 +63,7 @@ jobs:
       #----------------------------------------------
       - name: Run tests and generate coverage
         run: |
-          poetry run pytest --cov=pybary tests/
+          poetry run pytest --cov=pybary --cov-report=xml tests/
           # Uncomment when achieve sufficient coverage threshold
           poetry run coverage report -m
       #----------------------------------------------
@@ -71,3 +71,6 @@ jobs:
       #----------------------------------------------
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          verbose: true
