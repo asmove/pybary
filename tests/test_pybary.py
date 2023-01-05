@@ -35,8 +35,6 @@ def test_bary_batch():
     assert_allclose(result, expected)
 
 def test_bary_recursive():
-    solutions = []
-
     # Recursive setup
 
     # Initial point
@@ -46,14 +44,11 @@ def test_bary_recursive():
     size_x = (n, 1)
 
     # Hyperparameters
-    nu = 5
-    sigma = 0.5
-    zeta = 0
-    lambda_ = 1
+    nu, sigma, zeta, lambda_ = 5, 0.5, 0, 1
 
     # Iteration cardinality
     n_iterations = 1000
-
+    
     # Recursive run
     xhat_recursive = bary_recursive(
         oracle, x0, 
@@ -61,7 +56,6 @@ def test_bary_recursive():
         n_iterations
     )
     
-    precision = 1e-3
     solution = zeros(size_x)
     
     assert norm(solution-xhat_recursive) < sigma
