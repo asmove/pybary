@@ -24,4 +24,3 @@ We may code examples by performing following actions
 
 1. Run command `python examples/example.py` from package root folder;
 2. Open notebook `examples/example.ipynb` and run cell on given order.
-
