@@ -1,5 +1,6 @@
 [![Version](https://img.shields.io/pypi/v/pybary.svg)](https://pypi.python.org/pypi/pybary)
 [![python](https://img.shields.io/pypi/pyversions/pybary.svg)](https://pypi.org/project/pybary/)
+[![codecov](https://codecov.io/gh/asmove/pybary/branch/main/graph/badge.svg?token=G8TVJ4X32L)](https://codecov.io/gh/asmove/pybary)
 
 Pybary
 ========
