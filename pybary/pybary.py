@@ -25,10 +25,13 @@ def bary_batch(oracle, xs, nu = DEFAULT_NU):
     n = len(xs[0])
     size_x = (n, 1)
 
-    bexp_fun = lambda x: exp(-nu*oracle(x))
+    def bexp_fun(x):
+        return exp(-nu * oracle(x))
 
-    prod_func = lambda elems: elems[0]*elems[1]
-    sum_func = lambda acc, a: acc + a
+    def prod_func(elems):
+        return (elems[0] * elems[1])
+    def sum_func(acc, a):
+        return (acc + a)
 
     num = reduce(
         sum_func, 

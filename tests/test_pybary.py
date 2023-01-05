@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pybary.pybary import bary_batch, bary_recursive
+from pybary.pybary import bary_batch
 from numpy import array
 from numpy.testing import assert_allclose
 from numpy.linalg import norm
@@ -12,7 +12,8 @@ def test_bary_batch():
     """
 
     # Oracle function
-    oracle = lambda x: norm(x)
+    def oracle(x):
+        return norm(x)
 
     # Initial point
     xs_test = array([[0, 0], [1, 1]])

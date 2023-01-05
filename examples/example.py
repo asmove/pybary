@@ -5,7 +5,8 @@ from numpy.random import normal
 from numpy.linalg import norm
 
 # Oracle function
-oracle = lambda x: norm(x)
+def oracle(x):
+    return norm(x)
 
 # Initial point
 x0 = array([0, 0])
