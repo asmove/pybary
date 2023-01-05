@@ -1,5 +1,8 @@
 """Main module."""
+from __future__ import annotations
+
 from functools import reduce
+
 from numpy import exp, zeros
 from numpy.random import normal
 
@@ -9,19 +12,20 @@ DEFAULT_SIGMA = 0.1
 DEFAULT_ZETA = 0
 DEFAULT_ITERANTION_COUNT = 1000
 
-def bary_batch(oracle, xs, nu = DEFAULT_NU):
-    ''' 
-     Batch barycenter algorithm for direct optimization
-     
-     In:
-       - oracle     [function]   : Oracle function e.g. lambda x: numpy.norm(x)
-       - xs         [list[list]] : list with coordinates
-       - nu         [double]     : positive value (Caution on its value due overflow)
-       - lambda     [double]     : Forgetting factor between 0 and 1
-     Out:
-        - xhat      [np.array]   : barycenter position
-    '''
-    
+
+def bary_batch(oracle, xs, nu=DEFAULT_NU):
+    """
+    Batch barycenter algorithm for direct optimization
+
+    In:
+      - oracle     [function]   : Oracle function e.g. lambda x: numpy.norm(x)
+      - xs         [list[list]] : list with coordinates
+      - nu         [double]     : positive value (Caution on its value due overflow)
+      - lambda     [double]     : Forgetting factor between 0 and 1
+    Out:
+       - xhat      [np.array]   : barycenter position
+    """
+
     n = len(xs[0])
     size_x = (n, 1)
 
@@ -29,45 +33,43 @@ def bary_batch(oracle, xs, nu = DEFAULT_NU):
         return exp(-nu * oracle(x))
 
     def prod_func(elems):
-        return (elems[0] * elems[1])
-    
-    def sum_func(acc, a):
-        return (acc + a)
+        return elems[0] * elems[1]
 
-    num = reduce(
-        sum_func, 
-        map(prod_func, zip(map(bexp_fun, xs), xs)), 
-        zeros(size_x).T
-    )
+    def sum_func(acc, a):
+        return acc + a
+
+    num = reduce(sum_func, map(prod_func, zip(map(bexp_fun, xs), xs)), zeros(size_x).T)
 
     den = reduce(sum_func, map(bexp_fun, xs), 0)
 
-    return num/den
+    return num / den
+
 
 def bary_recursive(
-    oracle, x0, 
-    nu = DEFAULT_NU, 
-    sigma = DEFAULT_SIGMA, 
-    zeta = DEFAULT_ZETA, 
-    lambda_ = DEFAULT_LAMBDA, 
-    iterations = DEFAULT_ITERANTION_COUNT
-  ):
-    '''
-     Recursive barycenter algorithm for direct optimization
-     
-     In:
-       - oracle     [function]  : Oracle function e.g. lambda x: numpy.power(x, 2)
-       - x0         [np.array]  : Initial query values
-       - nu         [double]    : positive value (Caution on its value due overflow)
-       - sigma      [double]    : Std deviation of normal distribution
-       - zeta       [double]    : Proportional value for mean of normal distribution
-       - lambda     [double]    : Forgetting factor between 0 and 1
-       - iterations [integer]   : Maximum number of iterations
-     
-     Out:
-        - xhat      [np.array]  : barycenter position
-    '''
-    
+    oracle,
+    x0,
+    nu=DEFAULT_NU,
+    sigma=DEFAULT_SIGMA,
+    zeta=DEFAULT_ZETA,
+    lambda_=DEFAULT_LAMBDA,
+    iterations=DEFAULT_ITERANTION_COUNT,
+):
+    """
+    Recursive barycenter algorithm for direct optimization
+
+    In:
+      - oracle     [function]  : Oracle function e.g. lambda x: numpy.power(x, 2)
+      - x0         [np.array]  : Initial query values
+      - nu         [double]    : positive value (Caution on its value due overflow)
+      - sigma      [double]    : Std deviation of normal distribution
+      - zeta       [double]    : Proportional value for mean of normal distribution
+      - lambda     [double]    : Forgetting factor between 0 and 1
+      - iterations [integer]   : Maximum number of iterations
+
+    Out:
+       - xhat      [np.array]  : barycenter position
+    """
+
     def bexp_fun(x):
         return exp(-nu * oracle(x))
 
@@ -78,23 +80,23 @@ def bary_recursive(
 
     deltax_1 = zeros((card_x, 1))
     solution_is_found = False
-    
+
     # Optimization loop
     i = 1
-    while(not solution_is_found):
-        z = normal(zeta*deltax_1, sigma).T
+    while not solution_is_found:
+        z = normal(zeta * deltax_1, sigma).T
 
         x = xhat_1 + z
         e_i = bexp_fun(x)
-        m = lambda_*m_1 + e_i
-        xhat = (1/m)*(lambda_*m_1*xhat_1 + x*e_i)
-        
+        m = lambda_ * m_1 + e_i
+        xhat = (1 / m) * (lambda_ * m_1 * xhat_1 + x * e_i)
+
         solution_is_found = i >= iterations
-        
+
         # Update previous variables
         m_1 = m
         xhat_1 = xhat
-        
+
         i = i + 1
-    
+
     return xhat

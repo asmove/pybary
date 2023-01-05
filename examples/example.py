@@ -1,12 +1,17 @@
 #!/usr/bin/env python
-from pybary import bary_batch, bary_recursive
+from __future__ import annotations
+
 from numpy import array
-from numpy.random import normal
 from numpy.linalg import norm
+from numpy.random import normal
+
+from pybary import bary_batch, bary_recursive
+
 
 # Oracle function
 def oracle(x):
     return norm(x)
+
 
 # Initial point
 x0 = array([1, 1])
@@ -32,5 +37,5 @@ xhat_recursive = bary_recursive(oracle, x0, nu, sigma, zeta, lambda_, iterations
 xhat_batch = bary_batch(oracle, xs, nu)
 
 # Results
-print('Batch result     : '+str(xhat_batch))
-print('Recursive result : '+str(xhat_recursive))
+print("Batch result     : " + str(xhat_batch))
+print("Recursive result : " + str(xhat_recursive))
