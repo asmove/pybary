@@ -46,6 +46,13 @@ def bary_batch(oracle, xs, nu=DEFAULT_NU):
     return num / den
 
 
+def bary_recur_eval(m_1, xhat_1, x, oracle, nu, lambda_):
+    e_i = exp(-nu * oracle(x))
+    m = lambda_ * m_1 + e_i
+
+    return m, (1 / m) * (lambda_ * m_1 * xhat_1 + x * e_i)
+
+
 def bary_recursive(
     oracle,
     x0,
@@ -71,9 +78,6 @@ def bary_recursive(
        - xhat      [np.array]  : barycenter position
     """
 
-    def bexp_fun(x):
-        return exp(-nu * oracle(x))
-
     # Initialization
     xhat_1 = x0
     m_1 = 0
@@ -88,16 +92,13 @@ def bary_recursive(
         z = normal(zeta * deltax_1, sigma).T
 
         x = xhat_1 + z
-        e_i = bexp_fun(x)
-        m = lambda_ * m_1 + e_i
-        xhat = (1 / m) * (lambda_ * m_1 * xhat_1 + x * e_i)
-
-        solution_is_found = i >= iterations
+        m, xhat = bary_recur_eval(m_1, xhat_1, x, oracle, nu, lambda_)
 
         # Update previous variables
         m_1 = m
         xhat_1 = xhat
 
+        solution_is_found = i >= iterations
         i = i + 1
 
     return xhat
