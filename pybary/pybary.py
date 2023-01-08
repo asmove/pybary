@@ -49,8 +49,9 @@ def bary_batch(oracle, xs, nu=DEFAULT_NU):
 def bary_recur_eval(m_1, xhat_1, x, oracle, nu, lambda_):
     e_i = exp(-nu * oracle(x))
     m = lambda_ * m_1 + e_i
-    
+
     return m, (1 / m) * (lambda_ * m_1 * xhat_1 + x * e_i)
+
 
 def bary_recursive(
     oracle,
@@ -92,7 +93,7 @@ def bary_recursive(
 
         x = xhat_1 + z
         m, xhat = bary_recur_eval(m_1, xhat_1, x, oracle, nu, lambda_)
-        
+
         # Update previous variables
         m_1 = m
         xhat_1 = xhat
