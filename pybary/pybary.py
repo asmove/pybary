@@ -77,9 +77,6 @@ def bary_recursive(
        - xhat      [np.array]  : barycenter position
     """
 
-    def bexp_fun(x):
-        return exp(-nu * oracle(x))
-
     # Initialization
     xhat_1 = x0
     m_1 = 0
