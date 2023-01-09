@@ -4,11 +4,11 @@ import pytest
 from numpy import array
 from numpy.linalg import norm
 
-BatchInputs = namedtuple("baryBatchInputs", ["oracle", "xs", "nu"])
+BatchInputsProps = ["oracle", "xs", "nu"]
+BatchInputs = namedtuple("baryBatchInputs", BatchInputsProps)
 
-RecurInputs = namedtuple(
-    "baryRecurInputs", ["oracle", "x0", "nu", "sigma", "zeta", "lambda_", "n_iters"]
-)
+RecurInputsProps = ["oracle", "x0", "nu", "sigma", "zeta", "lambda_", "iters"]
+RecurInputs = namedtuple("baryRecurInputs", RecurInputsProps)
 
 
 # Oracle function

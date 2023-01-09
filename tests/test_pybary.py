@@ -58,7 +58,7 @@ def test_bary_recur_raise(recur_inputs_raise):
     sigma = recur_inputs_raise.sigma
     zeta = recur_inputs_raise.zeta
     lambda_ = recur_inputs_raise.lambda_
-    n_iters = recur_inputs_raise.n_iters
+    n_iters = recur_inputs_raise.iters
 
     match_str = "Oracle function must evaluate as a scalar value."
 
@@ -78,7 +78,7 @@ def test_bary_recursive(recur_inputs):
     sigma = recur_inputs.sigma
     zeta = recur_inputs.zeta
     lambda_ = recur_inputs.lambda_
-    n_iters = recur_inputs.n_iters
+    n_iters = recur_inputs.iters
 
     # Recursive run
     xhat = bary_recursive(oracle, x0, nu, sigma, zeta, lambda_, n_iters)
