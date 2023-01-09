@@ -26,6 +26,10 @@ def bary_batch(oracle, xs, nu=DEFAULT_NU):
        - xhat      [np.array]   : barycenter position
     """
 
+    if(not isinstance(oracle(xs[0]), float)): 
+        match_str = 'Oracle function must evaluate as a scalar value.'
+        raise ValueError(match_str)
+    
     n = len(xs[0])
     size_x = (n, 1)
 
@@ -77,6 +81,10 @@ def bary_recursive(
     Out:
        - xhat      [np.array]  : barycenter position
     """
+
+    if(not isinstance(oracle(x0), float)): 
+        match_str = 'Oracle function must evaluate as a scalar value.'
+        raise ValueError(match_str)
 
     # Initialization
     xhat_1 = x0
