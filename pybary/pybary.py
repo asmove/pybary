@@ -50,7 +50,7 @@ def bary_batch(oracle, xs, nu=DEFAULT_NU):
     return num / den
 
 
-def bary_recur_eval(m_1, xhat_1, x, oracle, nu, lambda_):
+def bary_recur_formula(m_1, xhat_1, x, oracle, nu, lambda_):
     e_i = exp(-nu * oracle(x))
     m = lambda_ * m_1 + e_i
 
@@ -89,24 +89,24 @@ def bary_recursive(
     # Initialization
     xhat_1 = x0
     m_1 = 0
-    card_x = len(x0)
+    card_x = (len(x0), 1)
 
-    deltax_1 = zeros((card_x, 1))
+    deltax_1 = zeros(card_x).T
     solution_is_found = False
 
     # Optimization loop
     i = 1
     while not solution_is_found:
-        z = normal(zeta * deltax_1, sigma).T
+        z = normal(-zeta * deltax_1, sigma)
 
         x = xhat_1 + z
-        m, xhat = bary_recur_eval(m_1, xhat_1, x, oracle, nu, lambda_)
-
+        m, xhat = bary_recur_formula(m_1, xhat_1, x, oracle, nu, lambda_)
+        
         # Update previous variables
-        m_1 = m
-        xhat_1 = xhat
-
+        m_1, xhat_1, deltax_1 = m, xhat, xhat - xhat_1
+        
         solution_is_found = i >= iterations
         i = i + 1
 
     return xhat
+
