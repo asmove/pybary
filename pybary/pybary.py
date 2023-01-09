@@ -101,12 +101,11 @@ def bary_recursive(
 
         x = xhat_1 + z
         m, xhat = bary_recur_formula(m_1, xhat_1, x, oracle, nu, lambda_)
-        
+
         # Update previous variables
         m_1, xhat_1, deltax_1 = m, xhat, xhat - xhat_1
-        
+
         solution_is_found = i >= iterations
         i = i + 1
 
     return xhat
-
