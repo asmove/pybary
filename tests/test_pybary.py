@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+import pytest
 from numpy import array, zeros
 from numpy.linalg import norm
 from numpy.testing import assert_allclose
 
 from pybary.pybary import bary_batch, bary_recursive
-import pytest
+
 
 def mean(elems):
     return sum(array(elems)) / len(elems)
@@ -25,10 +26,11 @@ def test_bary_batch_raise(batch_inputs_raise):
     nu = batch_inputs_raise.nu
     fake_oracle = batch_inputs_raise.oracle
 
-    match_str = u"Oracle function must evaluate as a scalar value."
+    match_str = "Oracle function must evaluate as a scalar value."
 
     with pytest.raises(ValueError, match=match_str):
         bary_batch(fake_oracle, xs, nu)
+
 
 def test_bary_batch(batch_inputs):
     """
@@ -43,6 +45,7 @@ def test_bary_batch(batch_inputs):
 
     assert_allclose(result, expected)
 
+
 def test_bary_recur_raise(recur_inputs_raise):
     """
     Must raise on multiple input oracle function
@@ -56,8 +59,8 @@ def test_bary_recur_raise(recur_inputs_raise):
     zeta = recur_inputs_raise.zeta
     lambda_ = recur_inputs_raise.lambda_
     n_iters = recur_inputs_raise.n_iters
-    
-    match_str = u"Oracle function must evaluate as a scalar value."
+
+    match_str = "Oracle function must evaluate as a scalar value."
 
     with pytest.raises(ValueError, match=match_str):
         bary_recursive(fake_oracle, x0, nu, sigma, zeta, lambda_, n_iters)
