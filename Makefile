@@ -63,6 +63,7 @@ test-watch: ## run tests on watchdog mode
 	ptw
 
 lint: clean ## perform inplace lint fixes
+	pip3 install --upgrade ruff
 	ruff --fix .
 	pre-commit run --all-files
 
