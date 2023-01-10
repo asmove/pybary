@@ -2,6 +2,7 @@
 [![python](https://img.shields.io/pypi/pyversions/pybary.svg)](https://pypi.org/project/pybary/)
 [![codecov](https://codecov.io/gh/asmove/pybary/branch/main/graph/badge.svg?token=G8TVJ4X32L)](https://codecov.io/gh/asmove/pybary)
 [![downloads](https://img.shields.io/pypi/dm/pybary)](https://pypi.org/project/pybary/)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/asmove/pybary/HEAD)
 
 Pybary
 ========
