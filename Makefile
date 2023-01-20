@@ -82,6 +82,7 @@ echo-version: ## Echo package version
 	printf "$(PACKAGE_VERSION)" 
 
 bump-version: ## bump version to user-provided {patch|minor|major} semantic
+	git pull origin main
 	poetry version $(v)
 	git add pyproject.toml
 	git commit -m "release/ tag v$(PACKAGE_VERSION)"
