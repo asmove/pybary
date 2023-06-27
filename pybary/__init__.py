@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from .pybary import bary_batch, bary_recursive, bary_recur_formula
+from .pybary import bary_batch, bary_recur_formula, bary_recursive
 
 __author__ = "Bruno Peixoto"
 __email__ = "brunolnetto@gmail.com"
