@@ -1,9 +1,7 @@
 """Main module."""
 from __future__ import annotations
 
-from functools import reduce
-
-from numpy import average, array, exp, zeros
+from numpy import array, average, exp, zeros
 from numpy.random import normal
 
 DEFAULT_NU = 3
@@ -11,6 +9,7 @@ DEFAULT_LAMBDA = 1
 DEFAULT_SIGMA = 0.5
 DEFAULT_ZETA = 0
 DEFAULT_ITERANTION_COUNT = 1000
+
 
 def bary_batch(oracle, xs, nu=DEFAULT_NU):
     """
