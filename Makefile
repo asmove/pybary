@@ -81,12 +81,18 @@ install: clean ## install the package to the active Python's site-packages
 echo-version: ## Echo package version
 	printf "$(PACKAGE_VERSION)" 
 
-bump-version: ## bump version to user-provided {patch|minor|major} semantic
-	git pull origin main
+check-bump: # check if bump version is valid
+	@if [ "$(v)" != "patch" ] && [ "$(v)" != "minor" ] && [ "$(v)" != "major" ]; then \
+		echo "Invalid input for 'v': $(v). Please use 'patch', 'minor', or 'major'."; \
+		exit 1; \
+	fi; \
+
+bump: ## bump version to user-provided {patch|minor|major} semantic
+	@$(MAKE) check-bump v=$(v)
 	poetry version $(v)
 	git add pyproject.toml
-	git commit -m "release/ tag v$(PACKAGE_VERSION)"
-	git tag "v$(PACKAGE_VERSION)"
+	git commit -m "release/ tag v$$(poetry version -s)"
+	git tag "v$$(poetry version -s)"
 	git push
 	git push --tags
 	poetry version
