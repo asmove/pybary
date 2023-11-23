@@ -1,7 +1,7 @@
 """Main module."""
 from __future__ import annotations
 
-from numpy import average, array, exp, zeros
+from numpy import array, average, exp, zeros
 from numpy.random import normal
 
 DEFAULT_NU = 3
