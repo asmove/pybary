@@ -1,7 +1,6 @@
 """Main module."""
 from __future__ import annotations
 
-from functools import reduce
 
 from numpy import average, array, exp, zeros
 from numpy.random import normal
@@ -28,8 +27,6 @@ def bary_batch(oracle, xs, nu=DEFAULT_NU):
     if not isinstance(oracle(xs[0]), float):
         match_str = "Oracle function must evaluate as a scalar value."
         raise ValueError(match_str)
-
-    n = len(xs[0])
 
     def bexp_fun(x):
         return exp(-nu * oracle(x))
