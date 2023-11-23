@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from functools import reduce
 
-from numpy import exp, zeros
+from numpy import average, array, exp, zeros
 from numpy.random import normal
 
 DEFAULT_NU = 3
@@ -11,7 +11,6 @@ DEFAULT_LAMBDA = 1
 DEFAULT_SIGMA = 0.5
 DEFAULT_ZETA = 0
 DEFAULT_ITERANTION_COUNT = 1000
-
 
 def bary_batch(oracle, xs, nu=DEFAULT_NU):
     """
@@ -31,23 +30,13 @@ def bary_batch(oracle, xs, nu=DEFAULT_NU):
         raise ValueError(match_str)
 
     n = len(xs[0])
-    size_x = (n, 1)
 
     def bexp_fun(x):
         return exp(-nu * oracle(x))
 
-    def prod_func(elems):
-        return elems[0] * elems[1]
-
-    def sum_func(acc, a):
-        return acc + a
-
-    coord_value_iter = zip(map(bexp_fun, xs), xs)
-    num = reduce(sum_func, map(prod_func, coord_value_iter), zeros(size_x).T)
-
-    den = reduce(sum_func, map(bexp_fun, xs), 0)
-
-    return num / den
+    x_weights = [bexp_fun(x) for x in xs]
+    barycenter = average(array(xs), axis=0, weights=array(x_weights))
+    return barycenter
 
 
 def bary_recur_formula(m_1, xhat_1, x, oracle, nu, lambda_):

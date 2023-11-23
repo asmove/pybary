@@ -41,8 +41,8 @@ def test_bary_batch(batch_inputs):
     oracle = batch_inputs.oracle
 
     result = bary_batch(oracle, xs, nu)
-    expected = array([[0.19557032, 0.19557032]])
-
+    expected = array([0.19557032, 0.19557032])
+    
     assert_allclose(result, expected)
 
 
