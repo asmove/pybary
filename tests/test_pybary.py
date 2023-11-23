@@ -41,7 +41,7 @@ def test_bary_batch(batch_inputs):
     oracle = batch_inputs.oracle
 
     result = bary_batch(oracle, xs, nu)
-    expected = array([[0.19557032, 0.19557032]])
+    expected = array([0.19557032, 0.19557032])
 
     assert_allclose(result, expected)
 
@@ -81,7 +81,7 @@ def test_bary_recursive(recur_inputs):
     n_iters = recur_inputs.iters
 
     # Recursive run
-    xhat = bary_recursive(oracle, x0, nu, sigma, zeta, lambda_, n_iters)
+    _, xhat = bary_recursive(oracle, x0, nu, sigma, zeta, lambda_, n_iters)
 
     n = len(x0)
     size_x = (n, 1)
