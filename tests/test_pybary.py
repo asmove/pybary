@@ -1,20 +1,11 @@
 from __future__ import annotations
 
 import pytest
-from numpy import array, zeros
+from numpy import array, zeros, mean, var
 from numpy.linalg import norm
 from numpy.testing import assert_allclose
 
 from pybary.pybary import bary_batch, bary_recursive
-
-
-def mean(elems):
-    return sum(array(elems)) / len(elems)
-
-
-def variance(elems):
-    elem_mean_diff = [(x - mean(elems)) ** 2 for x in elems]
-    return sum(elem_mean_diff) / len(elems)
 
 
 def test_bary_batch_raise(batch_inputs_raise):
