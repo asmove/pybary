@@ -59,7 +59,7 @@ def test_bary_recur_raise(recur_inputs_raise):
 
 def test_bary_recursive(recur_inputs):
     """
-    Must return stochastic barycenter evaluation within standaed deviation
+    Must return stochastic barycenter evaluation within standard deviation
     """
 
     # Recursive setup
