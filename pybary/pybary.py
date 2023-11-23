@@ -38,7 +38,7 @@ def bary_batch(oracle, xs, nu=DEFAULT_NU):
 
 def bary_recur_formula(m_1, xhat_1, x, oracle, nu, lambda_):
     e_i = exp(-nu * oracle(x))
-    m_1_lambda=lambda_ * m_1
+    m_1_lambda = lambda_ * m_1
     m = m_1_lambda + e_i
 
     return m, (1 / m) * (m_1_lambda * xhat_1 + x * e_i)
