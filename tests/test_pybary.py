@@ -81,7 +81,7 @@ def test_bary_recursive(recur_inputs):
     n_iters = recur_inputs.iters
 
     # Recursive run
-    xhat = bary_recursive(oracle, x0, nu, sigma, zeta, lambda_, n_iters)
+    _, xhat = bary_recursive(oracle, x0, nu, sigma, zeta, lambda_, n_iters)
 
     n = len(x0)
     size_x = (n, 1)
