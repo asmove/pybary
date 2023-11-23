@@ -97,4 +97,4 @@ def bary_recursive(
         solution_is_found = i >= iterations
         i = i + 1
 
-    return xhat
+    return m, xhat
