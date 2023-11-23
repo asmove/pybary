@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pybary"
-version = "0.1.9"
+version = "0.2.0"
 description = "Barycenter method in python"
 authors = ["Bruno Peixoto <brunolnetto@gmail.com>"]
 license = "MIT license"
