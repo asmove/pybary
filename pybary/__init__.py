@@ -9,4 +9,4 @@ from .pybary import bary_batch, bary_recursive
 __author__ = "Bruno Peixoto"
 __email__ = "brunolnetto@gmail.com"
 
-__all__ = ["bary_batch", "bary_recursive", "bary_recur_formula"]
+__all__ = ["bary_batch", "bary_recursive"]
