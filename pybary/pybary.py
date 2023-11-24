@@ -36,14 +36,6 @@ def bary_batch(oracle, xs, nu=DEFAULT_NU):
     return barycenter
 
 
-def bary_recur_formula(m_1, xhat_1, x, oracle, nu, lambda_):
-    e_i = exp(-nu * oracle(x))
-    m_1_lambda = lambda_ * m_1
-    m = m_1_lambda + e_i
-
-    return m, (1 / m) * (m_1_lambda * xhat_1 + x * e_i)
-
-
 def bary_recursive(
     oracle,
     x0,
@@ -81,13 +73,20 @@ def bary_recursive(
     deltax_1 = zeros(card_x).T
     solution_is_found = False
 
+    def bary_recur_formula(m_1_, xhat_1_, x_):
+        e_i = exp(-nu * oracle(x_))
+        m_1_lambda = lambda_ * m_1_
+        m = m_1_lambda + e_i
+
+        return m, (1 / m) * (m_1_lambda * xhat_1_ + x_ * e_i)
+
     # Optimization loop
     i = 1
     while not solution_is_found:
         z = normal(-zeta * deltax_1, sigma)
 
         x = xhat_1 + z
-        m, xhat = bary_recur_formula(m_1, xhat_1, x, oracle, nu, lambda_)
+        m, xhat = bary_recur_formula(m_1, xhat_1, x)
 
         # Update previous variables
         m_1, xhat_1, deltax_1 = m, xhat, xhat - xhat_1
