@@ -8,7 +8,7 @@ DEFAULT_NU = 3
 DEFAULT_LAMBDA = 1
 DEFAULT_SIGMA = 0.5
 DEFAULT_ZETA = 0
-DEFAULT_ITERANTION_COUNT = 1000
+DEFAULT_ITERATION_COUNT = 1000
 
 
 def bary_batch(oracle, xs, nu=DEFAULT_NU):
@@ -43,7 +43,7 @@ def bary_recursive(
     sigma=DEFAULT_SIGMA,
     zeta=DEFAULT_ZETA,
     lambda_=DEFAULT_LAMBDA,
-    iterations=DEFAULT_ITERANTION_COUNT,
+    iterations=DEFAULT_ITERATION_COUNT,
 ):
     """
     Recursive barycenter algorithm for direct optimization
@@ -66,30 +66,28 @@ def bary_recursive(
         raise ValueError(match_str)
 
     # Initialization
-    xhat_1 = x0
-    m_1 = 0
-    card_x = (len(x0), 1)
+    xhat = x0
+    m = 0
 
-    deltax_1 = zeros(card_x).T
     solution_is_found = False
 
-    def bary_recur_formula(m_1_, xhat_1_, x_):
-        e_i = exp(-nu * oracle(x_))
-        m_1_lambda = lambda_ * m_1_
-        m = m_1_lambda + e_i
-
-        return m, (1 / m) * (m_1_lambda * xhat_1_ + x_ * e_i)
+    def update(weight_total, estimate, prev_step=None):
+        if prev_step is None:
+            card_x = (len(estimate), 1)
+            prev_step = zeros(card_x).T
+        curiosity = normal(-zeta * prev_step, sigma)
+        probe = estimate + curiosity
+        weight = exp(-nu * oracle(probe))
+        weight_total = lambda_ * weight_total + weight
+        step = curiosity * weight / weight_total
+        estimate = estimate + step
+        return weight_total, estimate, step
 
     # Optimization loop
     i = 1
+    step = None
     while not solution_is_found:
-        z = normal(-zeta * deltax_1, sigma)
-
-        x = xhat_1 + z
-        m, xhat = bary_recur_formula(m_1, xhat_1, x)
-
-        # Update previous variables
-        m_1, xhat_1, deltax_1 = m, xhat, xhat - xhat_1
+        m, xhat, step = update(m, xhat, step)
 
         solution_is_found = i >= iterations
         i = i + 1
