@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from numpy import array, zeros, mean, var
+from numpy import array, zeros
 from numpy.linalg import norm
 from numpy.testing import assert_allclose
 
