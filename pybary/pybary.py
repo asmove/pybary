@@ -1,4 +1,5 @@
 """Main module."""
+
 from __future__ import annotations
 
 from numpy import array, average, exp, zeros
