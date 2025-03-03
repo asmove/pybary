@@ -1,4 +1,4 @@
-""" Package pybary  """
+"""Package pybary"""
 
 # -*- coding: utf-8 -*-
 
